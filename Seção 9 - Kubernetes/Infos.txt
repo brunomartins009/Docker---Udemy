@@ -1,0 +1,23 @@
+Control Plane: Onde é gerenciado o controle dos processos dos Nodes;
+
+Nodes: Máquinas que são gerenciadas pelo Control Plane;
+
+Deployment: A execução de uma imagem/projeto em um Pod;
+
+Pod: um ou mais containers que estão em um node;
+
+Services: Serviços que expoem os Pods ao mundo externo;
+
+Kubectl: Cliente de linha de comando para o Kubernetes;
+
+
+###### KUBERNETES DECLARATIVO ########
+apiVersion: versão utilizada da ferramenta
+
+kind: tipo de arquivo (Deployment, Service)
+
+metadata: descrever algum objeto, inserindo chaves como nome
+
+replicas: numero de replicas de Nodes/Pods
+
+containers: definir as especificações de containers como: nome e imagem

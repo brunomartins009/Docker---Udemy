@@ -1,0 +1,361 @@
+# Baixar uma imagem sem rodar
+docker pull <NOME DA IMAGEM>
+
+# Rodar um container
+docker run <NOME DO CONTAINER> 
+
+# Roda mantém um container rodando
+docker run -it <NOME DO CONTAINER>
+
+# Quais containers estão sendo executados no momento
+docker ps || docker container ls
+
+# Quais containers estão sendo executados e já foram executados na máquina
+docker ps -a || docker container ls -a
+ 
+# Roda o container em backgroud (detachead)
+docker run -d <NOME DO CONTAINER>
+
+# Expor uma porta
+docker run -p <PORTA EXPOSTA DO PC:PORTA RECEBIDA DO CONTAINER> <NOME DO CONTAINER>
+
+# Parar um container
+docker stop <ID> || <NOME>
+
+# Reinicia um container
+docker start <ID> || <NOME>
+
+# Definir nome de um container
+docker run --name
+
+# Verificar logs 
+docker logs <ID> || <NOME>
+
+# Remover containers
+docker -rm <ID> || <NOME> 
+docker -rm <ID> || <NOME> -f (se o container ainda estiver rodando, força a remoção)
+
+# Fazer build de uma imagem
+docker build <DIRETÓRIO DA IMAGEM>
+# depois
+docker run <NOME>||<ID>
+
+# Baixar uma imagem e deixa-lá pronta
+docker pull <NOME DA IMAGEM>
+
+# Opções para os comandos
+docker <COMANDO> --help
+
+# Nomear uma imagem
+docker tag <ID> <NOME>
+
+# Inserir uma tag em uma imagem já criada
+docker tag <NOME>:<TAG>
+
+# Nomear uma imagem na criação
+docker build -t <NOME> <DIRETÓRIO>
+
+# Inserir uma tag em uma imagem na criação
+docker build -t <NOME>:<TAG> <DIRETÓRIO>
+
+# Rodar o container de modo iterativo com START
+docker start -i <NOME>||<ID>
+
+# Remover uma imagem
+docker rmi <NOME>||<ID>
+docker rmi -f <NOME>||<ID> (se a imagem estiver em uso, força a remoção)
+
+# Remove imagens, containers e networks não utilizadas
+docker system prune
+
+# Remove container após a utilização
+docker ru --rm <CONTAINER>
+
+# Copiar de um container para o pc ou o inverso
+docker cp
+
+# Verificar informações de processamento
+docker top <CONTAINER>
+
+# Verificar ID, data de criação, imagem e etc
+docker inspect <CONTAINER>
+
+# Verificar processos executados em um container
+docker stats
+
+# Login
+docker Login
+
+# Logout
+docker Logout
+
+# Enviar imagem para o dockerhub (necessário criar um repositório antes)
+docker push <IMAGEM>
+
+# Criar um volume anonimo (Anonymous); /data representa o diretório que contém o volume
+docker run -v /data
+
+# Criar um volume nomeado (named); /data representa o diretório que contém o volume
+docker run -v <NOME DO VOLUME>:<DIRETÓRIO>
+
+# Bind mount, que não é criar um volume e sim apontar para um diretório
+docker run <DIRETÓRIO DO PC>:<DIRETÓRIO DO CONTAINER>
+
+# Criar um volume manualmente
+docker volume create <NOME DO VOLUME>
+
+# Verificar os volumes
+docker volume ls
+
+# Verificar os detalhes de um volume
+docker volume inspect <NOME DO VOLUME>
+
+# Remover um volume
+docker volume rm <NOME DO VOLUME>
+
+# Remover os volumes que não estão sendo utilizados
+docker volume prune
+
+# Criar um volume apenas de leitura
+docker run -v <DIRETÓRIO>:<DIRETÓRIO>:ro
+
+# Verifivar as redes
+docker network ls
+
+# Criar uma rede (por padrão é um BRIDGE)
+docker network create <NOME>
+
+# Criar uma rede (com driver diferente)
+docker network create -d <DRIVER>> <NOME>
+
+# Remover redes
+docker network rm <NOME>
+
+# Remover as redes não utilizadas
+docker network prune
+
+# Conectar um container a uma rede
+docker network connect <NETWORK> <CONTAINER>
+
+# Desconectar um container a uma rede
+docker network disconnect <NETWORK> <CONTAINER>
+
+# Inspecionar uma network
+docker network inspect <NOME>
+
+####### YAML #######
+
+# YAML finalização de linha é feita por quebra de linha
+Nome: Bruno
+idade: 25
+
+# Para identar usar dois espaços
+Objeto:
+  nome: "Bruno"
+  idade: 25
+
+# Comentários são feitos com '#'
+
+# números em YAML
+Inteiro: 25
+Float: 23.4
+
+# String em YAML
+sem_aspas: Bruno
+com_aspas: "Bruno"
+
+# Dados nulos
+teste_nulo_tio: ~
+teste_nulo_null: null
+
+# Valores boleanos
+teste_verdadeiro: true
+teste_verdadeiro_on: on
+teste_falso: false
+teste_falso_off: off
+
+# Arrays
+primeira_forma: [1,2,3,4]
+segunda_forma:
+  - 1
+  - 2
+  - 3
+  - 4
+
+# Dicionarios(um tipo de objeto)
+teste_objeto1: {a: 1, b: 2, c: 3, d: 4}
+teste_objeto2:
+  a: 1
+  b: 2
+  c: 3
+  d: 4
+teste_objeto_interno: {a: 1, b: 2, c: 3, objeto_interno: {d: 4}}
+
+###### COMPOSE #######
+
+# Rodar um compose no docker
+docker compose up
+
+# Rodar um compose detachead (rodar em backgroud)
+docker compose up -d
+
+# Reiniciar um compose
+docker compose start
+
+# Parar um compose (perde os dados)
+docker compose down
+
+# Parar um compose
+docker compose stop
+
+# Verificar um compose
+docker compose ps
+
+####### DOCKER SWARM ###########
+
+Nodes: é uma instância (máquina) que participa do swarm
+
+Manager Node: Node que gerencia os demais nodes
+
+Worker Node: Nodes que trabalham em função do Manager
+
+Service: Um conjunto de Tasks que o Manager Node manda Work Node executar
+
+Task: comandos que são executados nos Nodes
+
+# Iniciar um swarm  
+docker swarm init 
+docker swarm init --advertise-addr (IP) # Em alguns casos é necessaŕio o IP
+
+# Mostrar Nodes ativos
+docker node ls
+
+# Adicionar novos Nodes
+docker swarm join --token <TOKEN> <IP>:<PORTA>
+
+# Subir um novo serviço (em alguns precisaremos ser mais especificos, por exemplo colocando uma porta)
+docker service create --name <NOME> <IMAGEM>
+
+# Listar serviços que estão rodando
+docker service ls
+
+# Remover um serviço
+docker service rm <NOME>
+
+# Criar um serviço com um numero de replicas
+docker service create --name <NOME> --replicas <NUMERO> <IMAGEM>
+
+# Recuperar o Token do swarm
+docker swarm join-token manager
+
+# Verificar detalhes do swarm que o docker esta utilizando
+docker info
+
+# Parar de executar o swarm
+docker swarm leave
+
+# Remover um node do swarm
+docker node rm <ID>
+
+# Inspecionar um serviço
+docker service inspect <ID>
+
+# Verificar containers ativos pelo service
+docker service ps <ID>
+
+# Rodar o compose com o swarm
+docker stack deploy -c <ARQUIVO.YAML> <NOME>
+
+# Remover uma replica de um serviço || Aumentar/diminuir o numero de replicas
+docker service scale <NOME>=<NUMERO DE REPLICAS>
+
+# Fazer um serviço não receber mais tasks (drain para não receber mais tasks|active recebe task novas)
+docker node update --availability drain||active <ID>
+
+# Atualizar as configurações dos nodes (apenas nodes com status 'active' receberam atualizações)
+docker service update --image <IMAGEM> <SERVICO>
+
+# Criar uma rede para swarm
+docker network create 
+
+# Adicionar a tag '--network <REDE>' ao criar um service
+
+# Conectar serviço a uma rede já em execução
+docker service update --network <REDE> <NOME>
+
+###### KUBERNETES #######
+
+# Iniciar o minikube (Se não especificar o driver ele escolhe o melhor automaticamente)
+minikube start --driver=<DRIVER>
+
+# Parar o minikube
+minikube stop
+
+# Acessar a dashboard do minikube
+minikube dashboard
+
+# Recuparar apenas a URL
+minikube dashboard --url
+
+# Criar um deployment
+kubectl create deployment <NOME> --image=<IMAGEM>
+
+# Verificar um deployment
+kubectl get deployments
+
+# Receber mais detalhes dos deployments
+kubectl describe deployments
+
+# Verificar Pods utilizados
+kubectl get pods
+
+# Receber mais detalhes dos Pods
+kubectl describe pods
+
+# Verificar as configurações do Kubernetes
+kubectl config view
+
+# Criar um service 
+kubectl expose deployment <NOME> --type=<TIPO> --port=<PORT>
+
+# Gerar um IP de acesso
+minikube service <NAME>
+
+# Verificar serviços já criados
+kubectl get services
+
+# Verificar um serviço especifico
+kubectl describe services/<NOME>
+
+# Scalar a aplicação (Replicar ou remover Pods)
+kubectl scale deployment/<NOME> --replicas=<NUMERO>
+
+# Checar o numero de replicas
+kubectl get rs
+
+# Atualizar uma imagem
+kubectl set image deployment/<NOME> <NOME_CONTAINER>=<NOVA_IMAGEM>
+
+# Verificar uma alteração
+kubectl rollout status deployment/<NOME>
+
+# Desfazer uma alteração
+kubectl rollout undo deployment/<NOME>
+
+# Deletar um service
+kubectl delete service <NOME>
+
+# Deletar um Deployment
+kubectl delete deployment <NOME>
+
+# Executar arquivo de deployment
+kubectl apply -f <ARQUIVO>
+
+# Parar a execução de um arquivo de deployment
+kubectl delete -f <ARQUIVO>
+
+# Executar um arquivo de service
+kubectl apply -f <ARQUIVO>
+
+# Parar a execução de um arquivo de service
+kubectl delete -f <ARQUIVO>

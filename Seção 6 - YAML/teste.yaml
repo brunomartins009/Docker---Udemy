@@ -1,0 +1,36 @@
+Nome: "Bruno"
+Idade: 25
+
+# teste de comentario
+Objeto:
+  versao: 2
+  arquivo: "teste.txt"
+
+versao: 2
+versao_completa: 3.14
+
+string_sem_aspas: Teste sem aspas
+string_com_aspas: "Teste aspas"
+
+teste_nulo_tio: ~
+teste_nulo_null: null
+
+teste_verdadeiro: true
+teste_verdadeiro_on: on
+teste_falso: false
+teste_falso_off: off
+
+teste_lista1: [1,2,3,4]
+teste_lista2:
+  - 1
+  - 2
+  - 3
+  - 4
+
+teste_objeto1: {a: 1, b: 2, c: 3, d: 4}
+teste_objeto2:
+  a: 1
+  b: 2
+  c: 3
+  d: 4
+teste_objeto_interno: {a: 1, b: 2, c: 3, objeto_interno: {d: 4}}
